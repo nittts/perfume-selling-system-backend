@@ -37,6 +37,9 @@
       "/node_modules/"
     ]
   },
+  "engines": {
+    "node": "^18"
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "celebrate": "^15.0.1",
