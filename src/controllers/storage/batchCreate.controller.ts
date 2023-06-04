@@ -4,9 +4,9 @@ import { Request, Response } from "express";
 const storage = new StorageModel();
 
 const batchCreateController = async (req: Request, res: Response) => {
-  const files = req.body;
+  const { products } = req.body;
 
-  const response = await storage.batchCreate(files);
+  const response = await storage.batchCreate(products);
 
   return res.status(200).json(response);
 };

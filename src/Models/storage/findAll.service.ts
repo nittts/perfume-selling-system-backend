@@ -25,7 +25,16 @@ const findAll = async (filters: IFilters) => {
 
   const { products } = planetScalePrisma;
 
-  const response = await products.findMany({ where });
+  const response = await products
+    .findMany({ where })
+    .then(async () => {
+      await planetScalePrisma.$disconnect();
+    })
+    .catch(async (e) => {
+      console.error(e);
+      await planetScalePrisma.$disconnect();
+      process.exit(1);
+    });
 
   return { success: true, data: response };
 };
