@@ -23,7 +23,7 @@ indexRouter.use('/messages', (req: Request, res: Response) => {
   res.send('Rota de manejar o envio de mensagens aos clientes');
 });
 
-indexRouter.use('/storage', (req: Request, res: Response) => {
+indexRouter.use('/history', (req: Request, res: Response) => {
   res.send('Rota de manejar o histórico de saidas e entradas');
 });
 

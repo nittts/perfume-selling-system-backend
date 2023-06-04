@@ -5,6 +5,7 @@ import { runTestMongo } from "./database/atlas.mongo";
 const port = process.env.PORT || 8888;
 const host = process.env.HOST || "localhost";
 
+// check db connections
 checkConnection();
 runTestMongo();
 
