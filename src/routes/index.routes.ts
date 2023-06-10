@@ -2,8 +2,11 @@ import { Request, Response } from "express";
 import { Router } from "express";
 
 import storageRouter from "./storage/storage.routes";
+import authRouter from "./auth/auth.routes";
 
 const indexRouter = Router();
+
+indexRouter.use('/auth', authRouter);
 
 indexRouter.use("/storage", storageRouter);
 

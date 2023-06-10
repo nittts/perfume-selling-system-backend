@@ -7,6 +7,6 @@ const host = process.env.HOST || "localhost";
 // check db connections
 runTestMongo();
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Server running on http://${host}:${port}!`);
 });
