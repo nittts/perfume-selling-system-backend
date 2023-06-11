@@ -3,16 +3,15 @@ import { Router } from "express";
 
 import storageRouter from "./storage/storage.routes";
 import authRouter from "./auth/auth.routes";
+import clientRouter from "./clients/clients.routes";
 
 const indexRouter = Router();
 
-indexRouter.use('/auth', authRouter);
+indexRouter.use("/auth", authRouter);
 
 indexRouter.use("/storage", storageRouter);
 
-indexRouter.use("/clients", (req: Request, res: Response) => {
-  res.send("Rota de manejar os clientes");
-});
+indexRouter.use("/clients", clientRouter);
 
 indexRouter.use("/reports", (req: Request, res: Response) => {
   res.send("Rota de manejar os relatórios");

@@ -5,7 +5,7 @@ import authController from "../../controllers/auth";
 import validateSchema from "../../middlewares/validateSchema.middleware";
 
 // Schemas
-import { forgot, login } from "../../schemas/auth/validate.schema";
+import { forgot, login } from "../../schemas/auth/validate.schemas";
 
 const authRouter = Router();
 const controller = new authController();
@@ -14,6 +14,6 @@ authRouter.post("/login", validateSchema(login, "body"), controller.login);
 
 authRouter.post("/logout", controller.logout);
 
-authRouter.post("/forgot", validateSchema(forgot, "body"), (req, res) => {});
+authRouter.post("/forgot", validateSchema(forgot, "body"), controller.forgotPassword);
 
 export default authRouter;

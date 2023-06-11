@@ -1,3 +1,5 @@
-const forgotPasswordService = (email: string) => {
+const forgotPasswordService = async (email: string) => {
   return email;
 };
+
+export default forgotPasswordService;

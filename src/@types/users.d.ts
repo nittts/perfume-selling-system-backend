@@ -1,6 +1,20 @@
+import userPermission from "../helpers/enums/usersPermissions.enum";
+
 export interface IUserItems {
   id: string;
   name: string;
+}
+
+export interface IUserCreate {
+  name: string;
+  phone?: string;
+  permissions: userPermission[];
+  type: "ADMIN" | "CLIENT";
+  auth: {
+    otp?: number;
+    password: string;
+    email: string;
+  };
 }
 
 export interface IUser {
@@ -8,6 +22,7 @@ export interface IUser {
   name: string;
   phone: string;
   items: IUserItems[];
+  permissions: userPermission[];
   accPaid: number;
   accNotPaid: number;
   type: "ADMIN" | "CLIENT";
@@ -16,7 +31,6 @@ export interface IUser {
     password: string;
     email: string;
   };
-  online: false;
+  online: boolean;
   active: string;
-  lastVisitedPage: string;
 }
