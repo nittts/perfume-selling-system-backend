@@ -1,4 +1,4 @@
-import { IProduct } from "../../controllers/storage";
+import { IProduct } from "../../@types/storage";
 import planetScalePrisma from "../../database/planetScale.mysql";
 
 const create = async (product: IProduct) => {

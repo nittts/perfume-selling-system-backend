@@ -1,4 +1,4 @@
-import { IFilters } from "../../controllers/storage";
+import { IFilters } from "../../@types/storage";
 import planetScalePrisma from "../../database/planetScale.mysql";
 
 interface LooseObject {

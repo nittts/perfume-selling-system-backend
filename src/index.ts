@@ -1,12 +1,11 @@
+import LoggerService from "./utils/logger";
 import app from "./app";
-import { runTestMongo } from "./database/atlas.mongo";
+
+const logger = new LoggerService("App");
 
 const port = process.env.PORT || 8888;
 const host = process.env.HOST || "localhost";
 
-// check db connections
-runTestMongo();
-
 const server = app.listen(port, () => {
-  console.log(`Server running on http://${host}:${port}!`);
+  logger.info(`Server running on http://${host}:${port}!`);
 });

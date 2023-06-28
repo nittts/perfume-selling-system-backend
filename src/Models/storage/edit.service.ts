@@ -1,4 +1,4 @@
-import { IProductEdit } from "../../controllers/storage";
+import { IProductEdit } from "../../@types/storage";
 import planetScalePrisma from "../../database/planetScale.mysql";
 
 const edit = async (productData: IProductEdit, id: string) => {

@@ -1,4 +1,4 @@
-import { IProductArray } from "../../controllers/storage";
+import { IProductArray } from "../../@types/storage";
 import planetScalePrisma from "../../database/planetScale.mysql";
 
 const batchCreate = async (productsArr: IProductArray) => {

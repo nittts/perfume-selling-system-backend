@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import authModel from "../../Models/auth";
+import authModel from "../../Models/auth/__index";
 
 const auth = new authModel();
 

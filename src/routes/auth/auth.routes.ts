@@ -1,19 +1,25 @@
 import { Router } from "express";
-import authController from "../../controllers/auth";
+import authController from "../../controllers/auth/__index";
 
 // Middlewares
 import validateSchema from "../../middlewares/validateSchema.middleware";
+import loggerMiddleware from "../../middlewares/logger.middleware";
+import verifyToken from "../../middlewares/verifyToken.middleware";
 
 // Schemas
-import { forgot, login } from "../../schemas/auth/validate.schemas";
+import { forgot, login, logout, otp } from "../../schemas/auth/validate.schemas";
 
 const authRouter = Router();
 const controller = new authController();
 
+authRouter.use(loggerMiddleware);
+
 authRouter.post("/login", validateSchema(login, "body"), controller.login);
 
-authRouter.post("/logout", controller.logout);
+authRouter.post("/logout", verifyToken, validateSchema(logout, "body"), controller.logout);
 
 authRouter.post("/forgot", validateSchema(forgot, "body"), controller.forgotPassword);
+
+authRouter.post("/otp", validateSchema(otp, "body"), controller.oneTimePassword);
 
 export default authRouter;

@@ -3,12 +3,12 @@ import authModel from "../../Models/auth/__index";
 
 const auth = new authModel();
 
-const forgotPasswordController = async (req: Request, res: Response) => {
+const oneTimePasswordController = async (req: Request, res: Response) => {
   const { email } = req.body;
 
-  const response = await auth.forgotPassword(email);
+  const response = await auth.oneTimePassword(email);
 
   return res.status(200).send(response);
 };
 
-export default forgotPasswordController;
+export default oneTimePasswordController;

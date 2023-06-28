@@ -13,6 +13,7 @@ const app = express();
 
 // Parse body from requests
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Rate limit requests
 app.use(rateLimiterMiddleware);

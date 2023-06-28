@@ -1,35 +1,64 @@
-import nodeMailer from "nodemailer";
+import { createTransport } from "nodemailer";
+import Handlebars from "handlebars";
+import fs from "fs";
+import path from "path";
 
 interface ISendEmail {
-  email: string;
-  from: string;
   to: string;
   secure?: boolean;
   subject: string;
+  templateName: string;
+  templateData: any;
 }
 
-const buildEmailBody = () => "<h1>Hello world!</h1>";
+const buildEmailBody = (emailName: string, context: any) => {
+  const emailTemplate = fs.readFileSync(
+    path.join(__dirname, "..", "..", `/src/templates/emails/${emailName}.email.handlebars`),
+    "utf-8"
+  );
 
-const sendEmail = async ({ email, from, to, secure, subject }: ISendEmail) => {
-  const transporter = nodeMailer.createTransport({
+  console.log(context);
+
+  const template = Handlebars.compile(emailTemplate);
+
+  const messageBody = template(context);
+
+  return messageBody;
+};
+
+const sendEmail = async ({ to, subject, templateName, templateData }: ISendEmail) => {
+  const transporter = createTransport({
     host: process.env.MAIL_HOST,
-    port: Number(process.env.MAIL_PORT) || 587,
-    secure: secure || false,
+    port: Number(process.env.MAIL_PORT) ?? 465,
+    secure: false,
+    requireTLS: true,
     auth: {
       user: process.env.MAIL_USER,
       pass: process.env.MAIL_PASS,
     },
-    logger: true,
+    tls: {
+      ciphers: "SSLv3",
+    },
   });
 
-  const res = await transporter.sendMail({
-    from,
-    to,
-    subject,
-    html: email,
+  const template = buildEmailBody(templateName, templateData);
+
+  const mailOptions = {
+    from: "silviavariedades.worker@gmail.com",
+    to: to,
+    subject: `Silvia Variedades - ${subject}`,
+    html: template,
+  };
+
+  transporter.sendMail(mailOptions, (err, info) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("Email sent: " + info.response);
+    }
   });
 
-  console.log("Message sent!: %s", res.messageId);
+  return { success: true, message: "E-mail enviado com sucesso." };
 };
 
 export { buildEmailBody, sendEmail };

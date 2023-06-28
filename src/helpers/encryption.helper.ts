@@ -1,27 +1,26 @@
 import crypto from "crypto";
 
 const ALGORITHM = "aes-256-cbc";
-const initVector = crypto.randomBytes(16);
-const securityKey = crypto.randomBytes(32);
+const initVector = "a2xhcgAAAAAAAAAA";
+const securityKey = crypto.createHash("sha256").update("Nixnogen").digest();
 
 function encrypt(message: string) {
   const cipher = crypto.createCipheriv(ALGORITHM, securityKey, initVector);
 
-  let encryption = cipher.update(message, "utf-8", "hex");
+  let encryption: any = cipher.update(message);
 
-  encryption += cipher.final("hex");
-
-  return encryption;
+  return Buffer.concat([encryption, cipher.final()]).toString("base64");
 }
 
 function decrypt(encryptionData: string) {
+  if (encryptionData === null || typeof encryptionData === "undefined" || encryptionData === "") {
+    return encryptionData;
+  }
   const decipher = crypto.createDecipheriv(ALGORITHM, securityKey, initVector);
 
-  let decryption = decipher.update(encryptionData, "hex", "utf-8");
+  let decryption: any = decipher.update(encryptionData, "base64");
 
-  decryption += decipher.final("utf-8");
-
-  return decryption;
+  return Buffer.concat([decryption, decipher.final()]).toString();
 }
 
 export { encrypt, decrypt };

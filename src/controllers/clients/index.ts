@@ -1,9 +1,10 @@
 import createClientController from "./create.controller";
+import deleteUserController from "./delete.controller";
 
 class clientsController {
   constructor() {
     this.create = createClientController;
-    this.delete = () => {};
+    this.delete = deleteUserController;
     this.update = () => {};
     this.read = () => {};
     this.myAccount = () => {};
@@ -11,7 +12,7 @@ class clientsController {
   }
 
   create: typeof createClientController;
-  delete;
+  delete: typeof deleteUserController;
   update;
   read;
   myAccount;
