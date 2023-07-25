@@ -11,7 +11,6 @@ export interface IUserCreate {
   permissions: userPermission[];
   type: "ADMIN" | "CLIENT";
   auth: {
-    otp?: number;
     password: string;
     email: string;
   };
@@ -27,7 +26,6 @@ export interface IUser {
   accNotPaid: number;
   type: "ADMIN" | "CLIENT";
   auth: {
-    otp: number;
     password: string;
     email: string;
   };

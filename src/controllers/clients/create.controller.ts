@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import clientsModel from "../../Models/clients";
+import clientsModel from "../../Models/clients/__index";
 
 const model = new clientsModel();
 

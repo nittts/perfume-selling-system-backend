@@ -5,13 +5,12 @@ import LoggerService from "../../utils/logger";
 
 const auth = new authModel();
 
-const forgotPasswordController = async (req: Request, res: Response) => {
-  const { email } = req.body;
-  const { hostname, useragent } = req;
+const verifyOtpController = async (req: Request, res: Response) => {
+  const { email, otp } = req.body;
 
-  const response = await auth.forgotPassword(email, hostname, useragent);
+  const response = await auth.verifyOtp(Number(otp), email);
 
   return res.status(200).send(response);
 };
 
-export default forgotPasswordController;
+export default verifyOtpController;

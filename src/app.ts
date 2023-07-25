@@ -7,6 +7,7 @@ import helmet from "helmet";
 import rateLimiterMiddleware from "./middlewares/rateLimiter.middleware";
 import { errorHandling } from "./middlewares/asyncErrors.middleware";
 import indexRouter from "./routes/index.routes";
+import useragent from "express-useragent";
 
 config();
 const app = express();
@@ -26,6 +27,9 @@ app.use(errorHandling);
 
 // Helmet app!
 app.use(helmet());
+
+// Get user device information
+app.use(useragent.express());
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Server Running!");

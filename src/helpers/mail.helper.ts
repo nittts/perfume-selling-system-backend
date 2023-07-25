@@ -17,8 +17,6 @@ const buildEmailBody = (emailName: string, context: any) => {
     "utf-8"
   );
 
-  console.log(context);
-
   const template = Handlebars.compile(emailTemplate);
 
   const messageBody = template(context);

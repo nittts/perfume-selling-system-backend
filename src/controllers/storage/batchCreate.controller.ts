@@ -1,4 +1,4 @@
-import StorageModel from "../../Models/storage";
+import StorageModel from "../../Models/storage/__index";
 import { Request, Response } from "express";
 
 const storage = new StorageModel();

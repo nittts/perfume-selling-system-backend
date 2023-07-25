@@ -7,7 +7,7 @@ import loggerMiddleware from "../../middlewares/logger.middleware";
 import verifyToken from "../../middlewares/verifyToken.middleware";
 
 // Schemas
-import { forgot, login, logout, otp } from "../../schemas/auth/validate.schemas";
+import { forgot, login, logout, otp, resetPassword } from "../../schemas/auth/validate.schemas";
 
 const authRouter = Router();
 const controller = new authController();
@@ -21,5 +21,9 @@ authRouter.post("/logout", verifyToken, validateSchema(logout, "body"), controll
 authRouter.post("/forgot", validateSchema(forgot, "body"), controller.forgotPassword);
 
 authRouter.post("/otp", validateSchema(otp, "body"), controller.oneTimePassword);
+
+authRouter.post("/verifyOtp", validateSchema(otp, "body"), controller.verifyOtp);
+
+authRouter.post("/resetPassword", validateSchema(resetPassword, "body"), controller.resetPassword);
 
 export default authRouter;

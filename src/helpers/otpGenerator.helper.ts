@@ -10,7 +10,7 @@ const OTP_CONFIG = {
 
 const generateOtp = (length: number) => {
   const OTP = otpGenerator.generate(length || OTP_LENGTH, OTP_CONFIG);
-  return OTP;
+  return Number(OTP);
 };
 
 export default generateOtp;

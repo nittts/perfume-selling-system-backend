@@ -50,3 +50,31 @@ model resellers {
   id   String @id @db.Char(36)
   name String @db.VarChar(128)
 }
+
+model otp_tokens {
+  user_id  String   @unique(map: "user_id") @db.Char(36)
+  otp      Int      @unique(map: "otp")
+  createAt DateTime @db.DateTime(0)
+}
+
+model resetPassword_entries {
+  user_id  String   @unique(map: "user_id") @db.Char(36)
+  token    String   @unique(map: "token") @db.Char(36)
+  createAt DateTime @db.DateTime(0)
+}
+
+model d8c032a_a778_535f_8f53_e92787b80be2_20230725002046_vrepl {
+  user_id  String   @db.Char(36)
+  otp      Int      @unique(map: "otp")
+  createAt DateTime @db.DateTime(0)
+
+  @@map("_4d8c032a_a778_535f_8f53_e92787b80be2_20230725002046_vrepl")
+}
+
+model aab31820_fcf7_51bd_9c3f_65311ba8680a_20230725002051_vrepl {
+  user_id  String   @db.Char(36)
+  token    String   @unique(map: "token") @db.Char(36)
+  createAt DateTime @db.DateTime(0)
+
+  @@map("_aab31820_fcf7_51bd_9c3f_65311ba8680a_20230725002051_vrepl")
+}

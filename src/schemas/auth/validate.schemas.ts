@@ -47,7 +47,25 @@ const otp = Joi.object()
       "string.email": "E-mail Inválido.",
       "any.required": "Campo de e-mail é obrigatório.",
     }),
+    otp: Joi.number().messages({
+      "number.base": "O valor de entrada única deve ser um número.",
+    }),
   })
   .options({ stripUnknown: true });
 
-export { login, forgot, logout, otp };
+const resetPassword = Joi.object()
+  .keys({
+    newPassword: Joi.string().required().messages({
+      "string.base": "A nova senha deve ser um texto válido.",
+      "any.required": "Campo de nova senha é obrigatória.",
+    }),
+    token: Joi.string().required().min(36).max(36).messages({
+      "string.base": "Token inválido, verifique a escrita.",
+      "string.max": "Token inválido.",
+      "string.min": "Token inválido.",
+      "any.required": "Token é obrigatório.",
+    }),
+  })
+  .options({ stripUnknown: true });
+
+export { login, forgot, logout, otp, resetPassword };
