@@ -1,12 +1,11 @@
 import { IUser, IUserCreate } from "../../@types/users";
 import { mongoDatabase } from "../../database/atlas.mongo";
 import { v4 as uuid } from "uuid";
-import { encrypt } from "../../helpers/encryption.helper";
 import { AppError } from "../../middlewares/asyncErrors.middleware";
 
 const collection = mongoDatabase.collection("users");
 
-const createClientService = async (userCreate: IUserCreate) => {
+const createUserService = async (userCreate: IUserCreate) => {
   const newUser = {
     ...userCreate,
     id: uuid(),
@@ -17,15 +16,15 @@ const createClientService = async (userCreate: IUserCreate) => {
     active: "A",
   } as IUser;
 
-  const found = collection.find({ "auth.email": userCreate.auth.email });
+  const found = await collection.find({ "auth.email": userCreate.auth.email }).toArray();
 
-  if (found) {
+  if (found.length > 0) {
     throw new AppError("usuário já existente.", 401);
   }
 
   const res = await collection.insertOne(newUser);
 
-  return encrypt(JSON.stringify({ data: { success: true, data: res } }));
+  return { success: true, data: res };
 };
 
-export default createClientService;
+export default createUserService;

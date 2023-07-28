@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import clientsModel from "../../Models/clients/__index";
+import usersModel from "../../Models/users/__index";
 
-const model = new clientsModel();
+const model = new usersModel();
 
-const createClientController = async (req: Request, res: Response) => {
+const createUserController = async (req: Request, res: Response) => {
   const { name, phone, permissions, type, auth } = req.body;
 
   const response = await model.create({ name, phone, permissions, type, auth });
@@ -11,4 +11,4 @@ const createClientController = async (req: Request, res: Response) => {
   return res.status(201).send(response);
 };
 
-export default createClientController;
+export default createUserController;

@@ -3,7 +3,6 @@ import authController from "../../controllers/auth/__index";
 
 // Middlewares
 import validateSchema from "../../middlewares/validateSchema.middleware";
-import loggerMiddleware from "../../middlewares/logger.middleware";
 import verifyToken from "../../middlewares/verifyToken.middleware";
 
 // Schemas
@@ -11,8 +10,6 @@ import { forgot, login, logout, otp, resetPassword } from "../../schemas/auth/va
 
 const authRouter = Router();
 const controller = new authController();
-
-authRouter.use(loggerMiddleware);
 
 authRouter.post("/login", validateSchema(login, "body"), controller.login);
 

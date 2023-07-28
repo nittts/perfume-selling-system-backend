@@ -1,7 +1,5 @@
 import { Request, Response } from "express";
 import authModel from "../../Models/auth/__index";
-import { AppError } from "../../middlewares/asyncErrors.middleware";
-import LoggerService from "../../utils/logger";
 
 const auth = new authModel();
 

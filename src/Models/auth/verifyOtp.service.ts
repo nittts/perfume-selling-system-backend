@@ -6,7 +6,7 @@ import moment from "moment-timezone";
 import loginService from "./login.service";
 
 const collection = mongoDatabase.collection("users");
-const otpTokens = planetScalePrisma.otp_tokens;
+const { otp_tokens } = planetScalePrisma;
 
 const verifyOtpService = async (receivedOtp: number, email: string) => {
   const user = (await collection.findOne({ "auth.email": email })) as IUser | unknown;
@@ -17,7 +17,7 @@ const verifyOtpService = async (receivedOtp: number, email: string) => {
 
   const { id, auth } = user as IUser;
 
-  const foundOtp = await otpTokens.findFirst({ where: { AND: [{ user_id: id }, { otp: receivedOtp }] } });
+  const foundOtp = await otp_tokens.findFirst({ where: { AND: [{ user_id: id }, { otp: receivedOtp }] } });
   if (!foundOtp) {
     throw new AppError("Registro de entrada única não encontrado.", 404);
   }
@@ -30,7 +30,7 @@ const verifyOtpService = async (receivedOtp: number, email: string) => {
     throw new AppError("Senha de entrada única expirado.", 401);
   }
 
-  await otpTokens.delete({ where: { otp: otp } });
+  await otp_tokens.delete({ where: { otp: otp } });
 
   const loggedIn = await loginService(auth.email, auth.password);
 

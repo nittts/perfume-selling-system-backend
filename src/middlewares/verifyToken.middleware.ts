@@ -10,11 +10,11 @@ const verifyToken = (req: Request, res: Response, next: NextFunction) => {
   try {
     let token = req.headers.authorization as string;
 
-    token = token.split(" ")[1];
-
     if (!token) {
       throw new AppError("Token de autenticação não providênciado.", 403);
     }
+
+    token = token.split(" ")[1];
 
     jwt.verify(token, String(process.env.SECRET_KEY), (error: any, decoded: any) => {
       if (error) {

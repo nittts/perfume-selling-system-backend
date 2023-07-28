@@ -7,7 +7,7 @@ import { IUser } from "../../@types/users";
 import planetScalePrisma from "../../database/planetScale.mysql";
 
 const collection = mongoDatabase.collection("users");
-const otpTokens = planetScalePrisma.otp_tokens;
+const { otp_tokens } = planetScalePrisma;
 
 const oneTimePasswordService = async (email: string) => {
   const otp = generateOtp(6);
@@ -26,7 +26,7 @@ const oneTimePasswordService = async (email: string) => {
     createAt: new Date(),
   };
 
-  await otpTokens.upsert({
+  await otp_tokens.upsert({
     where: { user_id: id },
     update: { otp: otp, createAt: new Date() },
     create: baseEntry,

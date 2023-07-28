@@ -1,9 +1,6 @@
+import { LooseObject } from "../../@types";
 import { IFilters } from "../../@types/storage";
 import planetScalePrisma from "../../database/planetScale.mysql";
-
-interface LooseObject {
-  [key: string]: any;
-}
 
 const filtersDict = {
   buyingValue: "buying_value",

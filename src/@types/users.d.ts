@@ -16,6 +16,22 @@ export interface IUserCreate {
   };
 }
 
+export interface IUpdateUser {
+  name?: string;
+  phone?: string;
+  items?: IUserItems[];
+  permissions?: userPermission[];
+  accPaid?: number;
+  accNotPaid?: number;
+  type?: "ADMIN" | "CLIENT";
+  auth?: {
+    password?: string;
+    email?: string;
+  };
+  online?: boolean;
+  active?: "A" | "I";
+}
+
 export interface IUser {
   id: string;
   name: string;

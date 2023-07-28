@@ -16,6 +16,7 @@ const validateSchema = (schema: any, property: "body" | "params" | "query") => {
       const valid = !results.error;
 
       if (valid) {
+        req.body = results.value;
         next();
       } else {
         let message = "";

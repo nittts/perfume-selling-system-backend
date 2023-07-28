@@ -11,10 +11,10 @@ interface IResetPassword {
 }
 
 const collection = mongoDatabase.collection("users");
-const resetPwdEntries = planetScalePrisma.resetPassword_entries;
+const { resetPassword_entries } = planetScalePrisma;
 
 const resetPasswordService = async (newPwd: string, token: string) => {
-  const resetEntry = (await resetPwdEntries.findFirst({ where: { token: token } })) as IResetPassword | unknown;
+  const resetEntry = (await resetPassword_entries.findFirst({ where: { token: token } })) as IResetPassword | unknown;
 
   if (!resetEntry) {
     throw new AppError("Requisição de troca de senha não encontrado.", 404);
@@ -27,7 +27,7 @@ const resetPasswordService = async (newPwd: string, token: string) => {
     throw new AppError("Requsição expirada única expirado.", 401);
   }
 
-  await resetPwdEntries.delete({ where: { token: token } });
+  await resetPassword_entries.delete({ where: { token: token } });
 
   await collection.updateOne({ id: user_id }, { $set: { "auth.password": newPwd } });
 

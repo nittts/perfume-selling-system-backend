@@ -1,10 +1,11 @@
 import { Request, Response } from "express";
 import StorageModel from "../../Models/storage/__index";
+import { LooseObject } from "../../@types";
 
 const storage = new StorageModel();
 
 const findAllController = async (req: Request, res: Response) => {
-  const filters: any = {};
+  const filters: LooseObject = {};
 
   // Query params;
   const { query } = req;

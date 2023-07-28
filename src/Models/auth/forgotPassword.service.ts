@@ -8,7 +8,7 @@ import { Details } from "express-useragent";
 import planetScalePrisma from "../../database/planetScale.mysql";
 
 const collection = mongoDatabase.collection<IUser>("users");
-const passwordEntries = planetScalePrisma.resetPassword_entries;
+const { resetPassword_entries } = planetScalePrisma;
 
 const forgotPasswordService = async (email: string, hostname: string, userAgent: Details | undefined) => {
   const token = uuid();
@@ -26,7 +26,7 @@ const forgotPasswordService = async (email: string, hostname: string, userAgent:
     createAt: new Date(),
   };
 
-  await passwordEntries.upsert({
+  await resetPassword_entries.upsert({
     where: { user_id: id },
     update: { token: uuid(), createAt: new Date() },
     create: baseEntry,
